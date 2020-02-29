@@ -1,82 +1,74 @@
 
 
+// Objecto sktech donde se almacenan todos los nodes html
 
-// Objecto sktech
+let sketch = {
+    container : document.querySelector('.container'),
+    clearBtn : document.querySelector('#clearBtn'),
+    smallBtn : document.querySelector('#smallBtn'),
+    mediumBtn : document.querySelector('#mediumBtn'),
+    bigBtn : document.querySelector('#bigBtn'),
+}
 
-
-
-
-
-
-
-
-
-let container = document.querySelector('.container');
-let clearBtn = document.querySelector('#clearBtn');
-let smallBtn = document.querySelector('#smallBtn');
-let mediumBtn = document.querySelector('#mediumBtn');
-let bigBtn = document.querySelector('#bigBtn');
-
+// funciones creadoras dependiendo del tamanio seleccionado
 function createBoardSmall(){
-    for ( let i = 0 ; i < 256 ; i++ ) {
-        let point = document.createElement('div');
-        point.style.width = '16px';
-        point.style.height ='16px';
-        point.className = 'divPoint';
-        container.appendChild(point);
+    for ( let i = 0 ; i < 256 ; i++ ) {             //loop 256 repeticiones
+    
+        let point = document.createElement('div');  //crea 1 div llamada point
+        point.style.width = '2em';                  //le asigna un width
+        point.style.height ='2em';                  //le asigna un height
+        point.className = 'divPoint';               //se le agrega una classe usada simplemente por propositos esteticos
+        sketch.container.appendChild(point);        //agrega esa div a el container, el cual ya es una grid lista
+                                                    //para almacenar las divs en un cuadrado
     }
   
 }
-
-function createBoardMedium(){
-    for ( let i = 0 ; i < 1024 ; i++ ) {
+function createBoardMedium(){                       
+    for ( let i = 0 ; i < 1024 ; i++ ) {            //loop 1024 repeticiones
         let point = document.createElement('div');
-        point.style.width = '16px';
-        point.style.height ='16px';
+        point.style.width = '1em';
+        point.style.height ='1em';
         point.className = 'divPoint';
-        container.appendChild(point);
+        sketch.container.appendChild(point);
     }
   
 }
 function createBoardBig(){
-    for ( let i = 0 ; i < 4096 ; i++ ) {
+    for ( let i = 0 ; i < 4096 ; i++ ) {            //loop 4096 repeticiones
         let point = document.createElement('div');
-        point.style.width = '8px';
-        point.style.height ='8px';
+        point.style.width = '0.5em';
+        point.style.height ='0.5em';
         point.className = 'divPoint';
-        container.appendChild(point);
+        sketch.container.appendChild(point);
         
     }
   
 }
 
 
-
-
-
-
-smallBtn.addEventListener('click', function(){
-    container.classList.remove('container-medium');
-    container.classList.remove('container-big');
-    container.classList.add('container');
-    deleteBoard();
-    createBoardSmall();
-    checker();
+                                                            //eventListener para cambiar de size
+smallBtn.addEventListener('click', function(){              //small btn
+    sketch.container.classList.remove('container-medium');  //si estaba en size-medium, lo saca
+    sketch.container.classList.remove('container-big');     //si estaba en size-big, lo saca
+    sketch.container.classList.add('container');            //agrega la clase correspondiente para preparar el espacio
+    deleteBoard();                                          //borra la tabla actual para dejar el container vacio
+    createBoardSmall();                                     //crea una tabla small que se posiciona en el container vacio 
+    checker();                                              //activa la funcion que checkea y pinta los cuadrados
     
 });
-mediumBtn.addEventListener('click', function(){
-    container.classList.remove('container');
-    container.classList.remove('container-big');
-    container.classList.add('container-medium');
+mediumBtn.addEventListener('click', function(){             //medium size listener
+    sketch.container.classList.remove('container');
+    sketch.container.classList.remove('container-big');
+    sketch.container.classList.add('container-medium');
     deleteBoard();
     createBoardMedium();
     checker();
     
 });
-bigBtn.addEventListener('click', function(){
-    container.classList.remove('container');
-    container.classList.remove('container-medium');
-    container.classList.add('container-big');
+bigBtn.addEventListener('click', function(){                //big size listener
+    sketch.container.classList.remove('container');
+    sketch.container.classList.remove('container-medium');
+    sketch.container.classList.add('container-big');
     deleteBoard();
     createBoardBig();
     checker();
@@ -86,32 +78,43 @@ bigBtn.addEventListener('click', function(){
 
 
 
-
-function clearBoard(){
-    let miniDivs = container.children;
-    for(let i = 0; i < miniDivs.length ; i++){
-        miniDivs[i].classList.remove('black');
+                                                            //utilidades y funciones a usar
+function clearBoard(){                          //limpia la tabla actual, borra la clase 'black' que determina si una div está pintada, dejandolas blancas
+    let miniDivs = sketch.container.children;   //seleccionamos todas las divs
+    for(let i = 0; i < miniDivs.length ; i++){  //loop sobre todas las divs
+        miniDivs[i].classList.remove('black');  //le remueve a todas la clase black, si no la tenia, no la borra, pero si la tenía, queda blanquita
     }
 }
-clearBtn.addEventListener('click', clearBoard);
+clearBtn.addEventListener('click', clearBoard); //listener del boton que limpia, al clickearlo ejecuta 'clearBoard';
 
-function deleteBoard(){
-    let miniDivs = container.children;
-    while(miniDivs[0]){
-        miniDivs[0].parentNode.removeChild(miniDivs[0]);
+function deleteBoard(){                         //deleteBoard fue creada para evitar que al cambiar de tabla se sobrepongan las tablas creando una talba enorme
+    let miniDivs = sketch.container.children;   //seleccionamos toda las divs
+    while(miniDivs[0]){                                  // while miniDivs[0](todas las divs)
+        miniDivs[0].parentNode.removeChild(miniDivs[0]); //remover todas las divs
     }
+}
+function painter(e){
+    e.target.classList.add('black');  
+    
 }
 
 
-function checker(){
-    let miniDivs = container.children;
-    for (let index = 0; index < miniDivs.length; index++) {
-        miniDivs[index].addEventListener('mouseenter', function(e){
-            console.log('hi');
-            e.target.classList.add('black');
 
-        });
+
+
+function checker(){                             //activa un eventlistener para todas las divs que cuando se les pasa elmouse por arriba, 
+                                                // su clase cambia a black
+    let miniDivs = sketch.container.children;                           //seleccionamos todas las divs
+    for (let index = 0; index < miniDivs.length; index++) {             //loop que pase por todas las divs
+
+        miniDivs[index].addEventListener('mouseover', painter);           //event listener para DIV ACTUAL a la cual el mouse ingrese cambie el color a black
+
+                                                                                    
     }
+    
 }
-window.onload = createBoardSmall();
-window.onload = checker();
+window.onload = createBoardSmall();             //la default board al iniciar al pagina es la small, por eso creo uno sin tener que borrar nada
+window.onload = checker();                      //activo la funcion de detectar las divs, checker se tiene que activar para cada instancia
+                                                
+
+
