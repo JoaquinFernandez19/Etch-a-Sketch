@@ -8,7 +8,24 @@ let sketch = {
     smallBtn : document.querySelector('#smallBtn'),
     mediumBtn : document.querySelector('#mediumBtn'),
     bigBtn : document.querySelector('#bigBtn'),
+    red : document.querySelector('#red'),
+    black : document.querySelector('#black')
 }
+
+let redState = false;
+let blackState = true;
+
+sketch.red.addEventListener('click', function(){
+    redState = true;
+    blackState = false;
+    checker();  
+})
+sketch.black.addEventListener('click', function(){
+    redState = false;
+    blackState = true;
+    checker();  
+})
+
 
 // funciones creadoras dependiendo del tamanio seleccionado
 function createBoardSmall(){
@@ -47,7 +64,7 @@ function createBoardBig(){
 
 
                                                             //eventListener para cambiar de size
-smallBtn.addEventListener('click', function(){              //small btn
+sketch.smallBtn.addEventListener('click', function(){              //small btn
     sketch.container.classList.remove('container-medium');  //si estaba en size-medium, lo saca
     sketch.container.classList.remove('container-big');     //si estaba en size-big, lo saca
     sketch.container.classList.add('container');            //agrega la clase correspondiente para preparar el espacio
@@ -56,7 +73,7 @@ smallBtn.addEventListener('click', function(){              //small btn
     checker();                                              //activa la funcion que checkea y pinta los cuadrados
     
 });
-mediumBtn.addEventListener('click', function(){             //medium size listener
+sketch.mediumBtn.addEventListener('click', function(){             //medium size listener
     sketch.container.classList.remove('container');
     sketch.container.classList.remove('container-big');
     sketch.container.classList.add('container-medium');
@@ -65,7 +82,7 @@ mediumBtn.addEventListener('click', function(){             //medium size listen
     checker();
     
 });
-bigBtn.addEventListener('click', function(){                //big size listener
+sketch.bigBtn.addEventListener('click', function(){                //big size listener
     sketch.container.classList.remove('container');
     sketch.container.classList.remove('container-medium');
     sketch.container.classList.add('container-big');
@@ -74,18 +91,19 @@ bigBtn.addEventListener('click', function(){                //big size listener
     checker();
     
 });
-
+sketch.clearBtn.addEventListener('click', clearBoard); //listener del boton que limpia, al clickearlo ejecuta 'clearBoard';
 
 
 
                                                             //utilidades y funciones a usar
 function clearBoard(){                          //limpia la tabla actual, borra la clase 'black' que determina si una div está pintada, dejandolas blancas
-    let miniDivs = sketch.container.children;   //seleccionamos todas las divs
-    for(let i = 0; i < miniDivs.length ; i++){  //loop sobre todas las divs
-        miniDivs[i].classList.remove('black');  //le remueve a todas la clase black, si no la tenia, no la borra, pero si la tenía, queda blanquita
+    let miniDivs = sketch.container.children;   
+    for(let i = 0; i < miniDivs.length ; i++){  
+        miniDivs[i].classList.remove('black');
+        miniDivs[i].classList.remove('red');
     }
 }
-clearBtn.addEventListener('click', clearBoard); //listener del boton que limpia, al clickearlo ejecuta 'clearBoard';
+sketch.clearBtn.addEventListener('click', clearBoard); //listener del boton que limpia, al clickearlo ejecuta 'clearBoard';
 
 function deleteBoard(){                         //deleteBoard fue creada para evitar que al cambiar de tabla se sobrepongan las tablas creando una talba enorme
     let miniDivs = sketch.container.children;   //seleccionamos toda las divs
@@ -93,9 +111,17 @@ function deleteBoard(){                         //deleteBoard fue creada para ev
         miniDivs[0].parentNode.removeChild(miniDivs[0]); //remover todas las divs
     }
 }
+
+
 function painter(e){
-    e.target.classList.add('black');  
-    
+    let current = e.target; 
+    if(redState === true){
+        blackState = false;
+        current.classList.add('red');
+    }else {
+        current.classList.add('black');
+    }
+ 
 }
 
 

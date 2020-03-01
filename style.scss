@@ -4,12 +4,13 @@ body {
     justify-content: center;
     flex-direction: column;
     background-color: rgba(253, 253, 249, 0.979);
+    font-family: Anton;
 
 }
 
 .title {
     font-size:1.9em;
-    color:rgb(143, 44, 44);
+    color:#05602e;
     text-align: center;
     margin-bottom: 1em;
     margin-top:1em;
@@ -26,10 +27,13 @@ body {
 }
 
 .black {
-    background-color: black;
+    background-color: rgb(0, 0, 0);
 }
 .red {
-    background-color: rgb(240, 18, 18);
+    background-color: rgb(255, 0, 0);
+}
+.clear {
+    background-color: rgb(255, 255, 255);
 }
 
 
@@ -41,7 +45,16 @@ body {
     color:rgb(143, 44, 44);
     border:1px solid black;
     background-color: white;
-
+}
+#red {
+    @extend #clearBtn;
+    background-color:red;
+    color:white;
+}
+#black {
+    @extend #clearBtn;
+    background-color: black;
+    color:white;
 }
 
 .buttons {
@@ -50,6 +63,11 @@ body {
     margin-bottom:2em;
     width:21em;
 
+}
+.buttons2 {
+    display:flex;
+    justify-content: space-evenly;
+    width:21em;
 }
 
 .buttonDiv button {
