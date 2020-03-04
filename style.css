@@ -12,7 +12,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: rgba(253, 253, 249, 0.979);
+  background-color: rgba(93, 232, 97, 0.23);
   font-family: Anton;
 }
 
@@ -33,12 +33,12 @@ body {
   border: 0.01em solid #b9b6b6;
 }
 
-.black {
-  background-color: black;
-}
-
 .red {
   background-color: red;
+}
+
+.black {
+  background-color: black;
 }
 
 .clear {

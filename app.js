@@ -117,15 +117,14 @@ function painter(e){
     let current = e.target; 
     if(redState === true){
         blackState = false;
+        current.classList.remove('black');
         current.classList.add('red');
     }else {
+        current.classList.remove('red');
         current.classList.add('black');
     }
  
 }
-
-
-
 
 
 function checker(){                             //activa un eventlistener para todas las divs que cuando se les pasa elmouse por arriba, 
