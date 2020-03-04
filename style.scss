@@ -3,14 +3,17 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: rgba(93, 232, 97, 0.23);
+    background: #c31432;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     font-family: Anton;
 
 }
 
 .title {
     font-size:1.9em;
-    color:#05602e;
+    color:#ffffffe3;
     text-align: center;
     margin-bottom: 1em;
     margin-top:1em;
@@ -22,7 +25,7 @@ body {
 
 .divPoint {
     margin:0;
-    border:0.01em solid rgb(185, 182, 182);
+    background-color: white;
 }
 .red {
     background-color: rgb(255, 0, 0);

@@ -12,13 +12,18 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: rgba(93, 232, 97, 0.23);
+  background: #c31432;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-gradient(linear, left top, right top, from(#240b36), to(#c31432));
+  background: linear-gradient(to right, #240b36, #c31432);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   font-family: Anton;
 }
 
 .title {
   font-size: 1.9em;
-  color: #05602e;
+  color: #ffffffe3;
   text-align: center;
   margin-bottom: 1em;
   margin-top: 1em;
@@ -30,7 +35,7 @@ body {
 
 .divPoint {
   margin: 0;
-  border: 0.01em solid #b9b6b6;
+  background-color: white;
 }
 
 .red {
